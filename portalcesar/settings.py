@@ -19,7 +19,7 @@ from dotenv import load_dotenv, find_dotenv, dotenv_values
 load_dotenv(find_dotenv(filename="../env"))
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
-BASE_DIR = Path(__file__).resolve().parent.parent
+BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 
 # Quick-start development settings - unsuitable for production
@@ -80,15 +80,16 @@ WSGI_APPLICATION = 'portalcesar.wsgi.application'
 
 # Database
 # https://docs.djangoproject.com/en/3.2/ref/settings/#databases
-
-DATABASES = {}
-
-if "DATABASE_URL" not in os.environ:
-    os.environ[
-        "DATABASE_URL"
-    ]=""
-
-DATABASES['default']= dj_database_url.config(conn_max_age=600, ssl_require=True)
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'NAME': 'dbg2hlnrjinalb',
+        'USER': 'ldsnlembunbhlk',
+        'PASSWORD': '07ee8ebb296e4a3173ccb2490e73875be6212f3c1c1c3679925c6693ef8af237',
+        'HOST': 'ec2-23-21-4-7.compute-1.amazonaws.com',
+        'PORT': '5432',
+    }
+}
 
 
 
@@ -135,3 +136,10 @@ STATIC_URL = '/static/'
 # https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+STATICFILES_DIRS = (
+    os.path.join(BASE_DIR, 'static'),
+)
+
+
+django_heroku.settings(locals())
