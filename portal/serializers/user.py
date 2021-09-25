@@ -15,10 +15,10 @@ class UserSerializer(serializers.ModelSerializer):
         return UserSerializer(User.objects.all(),many= True).data
     
     def remove_users(self,id):
-        user=User.objects.filter(id=id).update(is_active=False)
+        user=User.objects.filter(id=int(id)).update(is_active=False)
         
     def update_user(self,id,validated_data):
-        user= User.objects.filter(id=id).update(**validated_data)
+        user= User.objects.filter(id=int(id)).update(**validated_data)
         return user
 
     
